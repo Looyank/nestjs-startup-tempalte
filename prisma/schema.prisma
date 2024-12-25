@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator nestjsDto {
+  provider                        = "prisma-generator-nestjs-dto"
+  prettier                        = true
+  classValidation                 = true
+  exportRelationModifierClasses   = "false"
+  output                          = "../src/dto"
+  outputToNestJsResourceStructure = true
+  flatResourceStructure           = true
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  password  String
+  email     String?
+  sex       Int?     @default(0)
+  disabled  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+}
