@@ -1,5 +1,4 @@
 import { CreateUserDto } from '@/dto/user/create-user.dto';
-import { UpdateUserDto } from '@/dto/user/update-user.dto';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
 
@@ -24,12 +23,14 @@ export class UserService {
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  updatePassword(name: string, newPassword: string) {
     return this.prisma.user.update({
       where: {
-        id,
+        name,
       },
-      data: updateUserDto,
+      data: {
+        password: newPassword,
+      },
     });
   }
 

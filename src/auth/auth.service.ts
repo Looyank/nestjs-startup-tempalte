@@ -13,9 +13,8 @@ export class AuthService {
     return this.jwtService.sign(payload);
   }
 
-  verifyToken(token) {
-    if (!token) return '';
-
-    return this.jwtService.verify(token);
+  async verifyUser({ name }: { name: string; password: string }) {
+    const user = await this.userService.findOne(name);
+    return user;
   }
 }

@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthStrategy } from './auth.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './auth.controller';
+import { JWT_SECRET } from '@/const';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { AuthController } from './auth.controller';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         return {
-          secret: configService.get('JWT_SECRET'),
+          secret: configService.get(JWT_SECRET),
           global: true,
           signOptions: {
             expiresIn: '24h',
