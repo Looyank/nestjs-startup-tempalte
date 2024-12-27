@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  Length,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -19,6 +20,9 @@ export class CreateUserDto {
   })
   @IsNotEmpty()
   @IsString()
+  @Length(8, 15, {
+    message: 'The password length must be between 8-15 characters.',
+  })
   password: string;
   @ApiProperty({
     type: 'string',
@@ -26,7 +30,7 @@ export class CreateUserDto {
     nullable: true,
   })
   @IsOptional()
-  @IsEmail()
+  @IsEmail({}, { message: 'email format is incorrect' })
   email?: string | null;
   @ApiProperty({
     type: 'integer',
